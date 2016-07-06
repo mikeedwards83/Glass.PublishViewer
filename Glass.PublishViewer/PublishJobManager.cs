@@ -10,6 +10,7 @@ using Sitecore;
 using Sitecore.Data.Items;
 using Sitecore.Jobs;
 using Sitecore.Publishing;
+using Sitecore.Reflection;
 
 namespace Glass.PublishViewer
 {
@@ -26,9 +27,11 @@ namespace Glass.PublishViewer
 
 
         private static MethodInfo DeleteMethod;
+        private static FieldInfo JobOptionMethodInstanceField;
+
 
         public PublishingStats PublishingStats { get; private set; }
-
+        public MethodInstance PublishByPassMethodInstance { get; private set; }
       
 
         public IEnumerable<JobEntity> PublishJobs
@@ -55,6 +58,7 @@ namespace Glass.PublishViewer
         public PublishJobManager()
         {
             PublishingStats = new PublishingStats();
+            PublishByPassMethodInstance = new MethodInstance(this, "PublishByPass", null);
         }
 
         protected static void GetMethods()
@@ -62,7 +66,9 @@ namespace Glass.PublishViewer
             DeleteMethod = typeof(JobManager).GetMethod("RemoveJob",
                             BindingFlags.Static |
                             BindingFlags.NonPublic);
-        }
+
+            JobOptionMethodInstanceField = typeof(JobOptions).GetField("method", BindingFlags.NonPublic|BindingFlags.Instance);
+;        }
 
         protected virtual void JobRefresh()
         {
@@ -199,7 +205,7 @@ namespace Glass.PublishViewer
             
             var currentStatus = publishStatus.State;
 
-            if (currentStatus == JobState.Running && jobDetail.StartTime == null)
+            if (currentStatus != JobState.Queued && jobDetail.StartTime == null)
             {
                 jobDetail.StartTime = DateTime.UtcNow;
             }
@@ -310,18 +316,31 @@ namespace Glass.PublishViewer
             if (_jobEntities.ContainsKey(handleStr))
             {
                 JobEntity jobEntity = null;
-                _jobEntities.TryRemove(handleStr, out jobEntity);
+                _jobEntities.TryGetValue(handleStr, out jobEntity);
 
-                if (jobEntity != null)
+                if (jobEntity != null &&jobEntity.Status == JobState.Queued)
                 {
                     var job = JobManager.GetJob(jobEntity.Handle);
                     if (job != null)
                     {
                         PublishingStats.NumberOfCancelledPublishes++;
-                        DeleteMethod.Invoke(null, new[] {job});
+                        var publishStatus = ((Sitecore.Publishing.PublishStatus)(job.Options.Parameters[1]));
+                        publishStatus.SetState(JobState.Finished);
+                        publishStatus.Messages.Add("Publish Cancelled");
+                        jobEntity.StartTime = DateTime.UtcNow;
+
+                        //this is a really hacky way of hijacking the publishing process
+                        JobOptionMethodInstanceField.SetValue(job.Options, PublishByPassMethodInstance);
+
+                        // DeleteMethod.Invoke(null, new[] {job});
                     }
                 }
             }
+        }
+
+        public void PublishByPass()
+        {
+            //this method is empty and is used to stop a publish occuring
         }
     }
 }
