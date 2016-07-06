@@ -193,10 +193,11 @@
                     <%=job.Processed %>
                 </td>
                 <td>
-                    <%=job.ChildCount %>
+                    <%=job.ChildCount >=0? job.ChildCount.ToString() : "NA" %>
                 </td>
                 <td>
-                    <%=job.Percentage %>%
+                    
+                    <%=job.Percentage >= 0 ? job.Percentage.ToString() : "NA"%>%
                 </td>
 
                 <td>

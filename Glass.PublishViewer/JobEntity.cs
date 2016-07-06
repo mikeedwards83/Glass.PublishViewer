@@ -106,6 +106,10 @@ namespace Glass.PublishViewer
         {
             get
             {
+                if (ChildCount < 0)
+                {
+                    return -1;
+                }
                 var percentage= (int) (((((double) Processed)/((double) ChildCount)))*(double)100);
                 return percentage > 100 ? 100 : percentage;
             }
