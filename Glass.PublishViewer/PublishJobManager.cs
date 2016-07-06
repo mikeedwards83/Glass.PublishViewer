@@ -163,12 +163,14 @@ namespace Glass.PublishViewer
                 {
                     var currentItemCount = PublishingStats.ItemsPublished;
                     var jobItemCount = jobEntity.Processed;
-                    var itemDuration = PublishingStats.AverageTimePerItem;
+                    var itemDuration =
+                        PublishingStats.AverageTimePerItem;
+
                     var jobItemSeconds = jobEntity.ProcessingDuration.TotalSeconds; //we only care to 2 decimal
 
                     var newItemAverage = GetAverage(itemDuration, currentItemCount,  jobItemSeconds,
                         jobItemCount);
-                    PublishingStats.AverageTimePerItem = newItemAverage;
+                    PublishingStats.AverageTimePerItem = Double.IsInfinity(newItemAverage) ? 0 : newItemAverage; 
                 }
 
             }
