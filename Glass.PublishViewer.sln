@@ -5,6 +5,14 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glass.PublishViewer", "Glass.PublishViewer\Glass.PublishViewer.csproj", "{B51E3A72-5AD9-4416-AF30-C9ACCFB8190B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{0EC65641-49C0-4C55-BB0C-25B14A5C8845}"
+	ProjectSection(SolutionItems) = preProject
+		Licence.txt = Licence.txt
+		logo-250.png = logo-250.png
+		ReadMe.md = ReadMe.md
+		Screenshot.PNG = Screenshot.PNG
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

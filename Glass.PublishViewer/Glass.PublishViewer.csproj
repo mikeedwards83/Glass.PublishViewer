@@ -59,8 +59,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Licence.txt" />
-    <Content Include="logo-250.png" />
     <Content Include="Sitecore modules\PublishingViewer\logo-250.png" />
     <Content Include="Sitecore modules\PublishingViewer\PublishViewerPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
@@ -68,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Config\Include\Glass\Glass.PublishViewer.config" />
-    <None Include="ReadMe.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
