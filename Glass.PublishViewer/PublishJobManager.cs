@@ -28,7 +28,7 @@ namespace Glass.PublishViewer
 
         private static MethodInfo DeleteMethod;
         private static FieldInfo JobOptionMethodInstanceField;
-
+        private string PublishCancelledMessage { get; set; }
 
         public PublishingStats PublishingStats { get; private set; }
         public MethodInstance PublishByPassMethodInstance { get; private set; }
@@ -59,6 +59,8 @@ namespace Glass.PublishViewer
         {
             PublishingStats = new PublishingStats();
             PublishByPassMethodInstance = new MethodInstance(this, "PublishByPass", null);
+            PublishCancelledMessage =
+                Sitecore.Configuration.Settings.GetSetting("Glass.PublishViewer.AverageTimePerItem", "Publish Cancelled");
         }
 
         protected static void GetMethods()
@@ -328,7 +330,7 @@ namespace Glass.PublishViewer
                         PublishingStats.NumberOfCancelledPublishes++;
                         var publishStatus = ((Sitecore.Publishing.PublishStatus)(job.Options.Parameters[1]));
                         publishStatus.SetState(JobState.Finished);
-                        publishStatus.Messages.Add("Publish Cancelled");
+                        publishStatus.Messages.Add(PublishCancelledMessage);
                         jobEntity.StartTime = DateTime.UtcNow;
 
                         //this is a really hacky way of hijacking the publishing process
