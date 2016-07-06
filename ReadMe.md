@@ -38,7 +38,7 @@ The module supports the following features:
    * Average items per hour
    * Average publishes per hour
    
-![](Screenshot.png)
+![](Screenshot.PNG)
 
 ## Installation
 
