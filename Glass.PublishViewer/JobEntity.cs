@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Sitecore;
 using Sitecore.Jobs;
@@ -159,19 +160,51 @@ namespace Glass.PublishViewer
             }
         }
 
+
+        public int SkippedItems
+        {
+            get
+            {
+                if (Message.Any())
+                {
+                    return Message.Where(x => x.Contains("skipped")).Select(x =>
+                    {
+                        int skipped = 0;
+
+                        var match = _skippedMatch.Match(x);
+                        if (match != null)
+                        {
+                            var group = match.Groups["count"];
+
+                            if (group != null)
+                            {
+                                int.TryParse(group.Value, out skipped);
+                            }
+                        }
+
+                        return skipped;
+                    }).Aggregate((x, y) => x + y);
+                }
+                return 0;
+            }
+        }
+
         public double AverageTimePerItem
         {
             get
             {
                 if (Processed > 0)
                 {
-                    return (ProcessingDuration.TotalSeconds/(double) Processed);
+                    return (ProcessingDuration.TotalSeconds / (double)(Processed - SkippedItems));
                 }
+
                 return 0;
             }
         }
 
         public bool StatsProcessed { get; set; }
+
+        Regex _skippedMatch = new Regex(@"(?<count>\d+)");
 
         public JobEntity()
         {

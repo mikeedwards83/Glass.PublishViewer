@@ -164,7 +164,7 @@ namespace Glass.PublishViewer
                 if (jobEntity.EndTime.HasValue)
                 {
                     var currentItemCount = PublishingStats.ItemsPublished;
-                    var jobItemCount = jobEntity.Processed;
+                    var jobItemCount = jobEntity.Processed -jobEntity.SkippedItems;
                     var itemDuration =
                         PublishingStats.AverageTimePerItem;
 
@@ -180,7 +180,7 @@ namespace Glass.PublishViewer
             if (jobEntity.Status == JobState.Finished)
             {
                 PublishingStats.NumberOfCompletedPublishes++;
-                PublishingStats.ItemsPublished += jobEntity.Processed;
+                PublishingStats.ItemsPublished += jobEntity.Processed - jobEntity.SkippedItems;
             }
 
 

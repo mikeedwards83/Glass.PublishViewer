@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Sitecore\blogs.glass\Website\bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -50,17 +50,17 @@
     <Compile Include="PublishingStats.cs" />
     <Compile Include="PublishingTargets.cs" />
     <Compile Include="PublishJobManager.cs" />
-    <Compile Include="Sitecore modules\PublishingViewer\PublishViewerPage.aspx.cs">
+    <Compile Include="Sitecore modules\Glass\PublishingViewer\PublishViewerPage.aspx.cs">
       <DependentUpon>PublishViewerPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sitecore modules\PublishingViewer\PublishViewerPage.aspx.designer.cs">
+    <Compile Include="Sitecore modules\Glass\PublishingViewer\PublishViewerPage.aspx.designer.cs">
       <DependentUpon>PublishViewerPage.aspx.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Sitecore modules\PublishingViewer\logo-250.png" />
-    <Content Include="Sitecore modules\PublishingViewer\PublishViewerPage.aspx">
+    <Content Include="Sitecore modules\Glass\PublishingViewer\logo-250.png" />
+    <Content Include="Sitecore modules\Glass\PublishingViewer\PublishViewerPage.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
   </ItemGroup>
