@@ -167,7 +167,7 @@ namespace Glass.PublishViewer
             {
                 if (Message.Any())
                 {
-                    return Message.Where(x => x.Contains("skipped")).Select(x =>
+                    var skippeds = Message.Where(x => x.Contains("skipped")).Select(x =>
                     {
                         int skipped = 0;
 
@@ -183,7 +183,12 @@ namespace Glass.PublishViewer
                         }
 
                         return skipped;
-                    }).Aggregate((x, y) => x + y);
+                    });
+
+                    if (skippeds.Any())
+                    {
+                        return skippeds.Aggregate((x, y) => x + y);
+                    }
                 }
                 return 0;
             }

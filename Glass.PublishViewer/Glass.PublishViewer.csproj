@@ -46,10 +46,12 @@
   <ItemGroup>
     <Compile Include="JobEntity.cs" />
     <Compile Include="Pipelines\Initialise\StartPublishMonitor.cs" />
+    <Compile Include="Pipelines\PublishItem\Terminator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublishingStats.cs" />
     <Compile Include="PublishingTargets.cs" />
     <Compile Include="PublishJobManager.cs" />
+    <Compile Include="PublishTerminationException.cs" />
     <Compile Include="Sitecore modules\Glass\PublishingViewer\PublishViewerPage.aspx.cs">
       <DependentUpon>PublishViewerPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

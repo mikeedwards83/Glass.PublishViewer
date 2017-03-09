@@ -115,6 +115,9 @@
                         </tr>
                     </table>
                 </td>
+                <td>
+                    <a href="?action=terminate">Terminate Running Process</a>
+                </td>
             </tr>
         </table>
         <br/>

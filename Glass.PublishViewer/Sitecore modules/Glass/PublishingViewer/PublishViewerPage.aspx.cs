@@ -29,6 +29,9 @@ namespace Glass.PublishViewer
                 case "delete":
                     Delete(id);
                     break;
+                case "terminate":
+                    TerminateRunning();
+                    break;
             }
 
             Model = new PageModel();
@@ -42,6 +45,12 @@ namespace Glass.PublishViewer
             base.OnLoad(e);
         }
 
+        private void TerminateRunning()
+        {
+            _publishJobManager.FlagTermination();
+            var page = Request.RawUrl.Split('?')[0];
+            Response.Redirect(page);
+        }
         private void Delete(string id)
         {
             _publishJobManager.Delete(id);
