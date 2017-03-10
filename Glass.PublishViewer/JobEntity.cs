@@ -94,27 +94,11 @@ namespace Glass.PublishViewer
         /// Gets or sets the child count.
         /// </summary>
         /// <value>The child count.</value>
-        public int ChildCount { get; set; }
 
 
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
-        /// <summary>
-        /// Gets or sets the percentage.
-        /// </summary>
-        /// <value>The percentage.</value>
-        public int Percentage
-        {
-            get
-            {
-                if (ChildCount < 0)
-                {
-                    return -1;
-                }
-                var percentage= (int) (((((double) Processed)/((double) ChildCount)))*(double)100);
-                return percentage > 100 ? 100 : percentage;
-            }
-        }
+       
 
         /// <summary>
         /// Gets or sets the owner.
@@ -216,7 +200,6 @@ namespace Glass.PublishViewer
             Languages = new List<string>();
             TargetDatabase = new List<string>();
             Message = new List<string>();
-            ChildCount = -1;
         }
     }
 }

@@ -247,14 +247,6 @@ namespace Glass.PublishViewer
             {
                 jobDetail.ItemName = publishOptions[0].RootItem.Paths.Path;
 
-                if (jobDetail.ChildCount == -1)
-                {
-                    int languageCount = publishOptions.Length;
-
-                    var childCount = (CalcChildCount(publishOptions[0].RootItem, publishOptions[0].Deep) + 1 + 1);
-                    jobDetail.ChildCount = (childCount * languageCount);
-                }
-
                 jobDetail.Processed =publishStatus.Processed;
             }
             else
@@ -297,30 +289,6 @@ namespace Glass.PublishViewer
 
             return jobDetail;
             
-        }
-
-        /// <summary>
-        /// Calcs the child count.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="nLevelchild">if set to <c>true</c> [n levelchild].</param>
-        /// <returns></returns>
-        protected int CalcChildCount(Item item, bool nLevelchild)
-        {
-            int childCount = 0;
-            if (item != null)
-            {
-                if (item.HasChildren && nLevelchild)
-                {
-                    childCount = item.Children.Count;
-
-                    foreach (Item child in item.Children)
-                    {
-                        childCount += CalcChildCount(child, nLevelchild);
-                    }
-                }
-            }
-            return childCount;
         }
 
         public void Delete(string handleStr)

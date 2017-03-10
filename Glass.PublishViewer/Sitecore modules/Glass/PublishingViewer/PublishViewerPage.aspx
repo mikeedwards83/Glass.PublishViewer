@@ -134,8 +134,6 @@
                     <th>Owner</th>
                     <th>Path</th>
                     <th>Processed</th>
-                    <th>Child Count</th>
-                    <th>Percentage</th>
                     <th>Mode</th>
                     <th>Source DB</th>
                     <th>Target DB</th>
@@ -195,13 +193,7 @@
                 <td>
                     <%=job.Processed %>
                 </td>
-                <td>
-                    <%=job.ChildCount >=0? job.ChildCount.ToString() : "NA" %>
-                </td>
-                <td>
-                    
-                    <%=job.Percentage >= 0 ? job.Percentage.ToString() : "NA"%>%
-                </td>
+             
 
                 <td>
                     <%=job.Mode %>
